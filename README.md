@@ -2,12 +2,17 @@
 
 after installing Go export these env vars:
 export GOROOT=/usr/lib/golang 
+
 export GOPATH=$HOME/YOUR_REPO_FOLDER
+
 export PATH=$PATH:$GOPATH/bin
 
 install 3rd party pacakages:
+
 go get -u github.com/valyala/quicktemplate
+
 go get -u github.com/valyala/quicktemplate/qtc
+
 go get github.com/gin-gonic/gin
 
 cd to your repo directory and run "go build" 
