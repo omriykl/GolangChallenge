@@ -1,0 +1,61 @@
+{% import "structs" %}
+
+{% code
+type UserPage struct {
+	User *structs.User
+}
+%}
+
+
+{% func (u *UserPage) Title() %}
+	{% if u.User == nil %}
+		Add New User
+	{% else %}
+		Edit User
+	{% endif %}
+{% endfunc %}
+
+
+{% func (u *UserPage) Body() %}
+	<h1>
+	{%code first := "" %}
+	{%code last := "" %}
+	{%code id := -1 %}
+	{% if u.User == nil %}
+		New User
+	{% else %}
+		Edit User #{%d u.User.Id%}
+		{%code first = u.User.FirstName %}
+		{%code last = u.User.LastName %}
+		{%code id = u.User.Id %}
+	{% endif %}
+	</h1>
+	<div>
+		<form method="POST" action="/add">
+			<table>
+				<tr>
+					<td>
+						Fisrt Name
+					</td>
+					<td>
+						<input type="text" name="first" value="{%s first %}" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Last Name
+					</td>
+					<td>
+						<input type="text" name="last" value="{%s last %}" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="hidden" name="id" value="{%d id %}" />
+						<input type="submit" value="Save!" />
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+{% endfunc %}

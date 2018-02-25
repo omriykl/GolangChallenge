@@ -1,0 +1,63 @@
+The list page template 
+
+{% import "structs" %}
+
+{% code
+type MainPage struct {
+	Users []*structs.User
+}
+%}
+
+
+{% func (p *MainPage) Title() %}
+	Users List
+{% endfunc %}
+
+
+{% func (p *MainPage) Body() %}
+	<h1>List</h1>
+	{% if len(p.Users) == 0 %}
+		No users yet..
+	{% else %}
+		<div>
+			<table border="1">
+				<tr>
+					<td>
+						<b>ID</b>
+					</td>
+					<td>
+						<b>Fisrt Name</b>
+					</td>
+					<td>
+						<b>Last Name</b>
+					</td>
+					<td>
+						<b>Created Date</b>
+					</td>
+					<td>
+						<b>Edit</b>
+					</td>
+				</tr>
+				{% for _,val := range p.Users %}
+				<tr>
+					<td>
+						{%d val.Id %}
+					</td>
+					<td>
+						{%s val.FirstName %}
+					</td>
+					<td>
+						{%s val.LastName %}
+					</td>
+					<td>
+						{%s val.CreatedDate.Format("2006-01-02 15:04:05") %}
+					</td>
+					<td>
+						<a href="/get/{%d val.Id %}">Edit</a>
+					</td>
+				</tr>
+				{%endfor%}
+			</table>
+		</div>
+	{% endif %}
+{% endfunc %}
